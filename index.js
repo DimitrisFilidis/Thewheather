@@ -14,23 +14,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-    res.render("index.ejs");
-   
-
-    
-    
+    res.render("index.ejs");   
 });
+
 app.post("/", async (req, res) => {
     const country = req.body.country;
-    
+
     try {
         const result = await axios.get(API_URL + `q=${country},ISO 3166&limit=1&appid=${APIKey}`);
         var lat = result.data[0].lat
         var lon = result.data[0].lon
-
     } catch (error) {
-        console.log(error)
-        
+        console.log(error)    
     }
     try {
         console.log(lat,lon);        
@@ -44,12 +39,8 @@ app.post("/", async (req, res) => {
          });
     } catch (error) {
         console.log(error)
-    
     }
   });
-
-
-
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
